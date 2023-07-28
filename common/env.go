@@ -37,10 +37,27 @@ func initEnv() {
 }
 
 func initUserToken() {
-	for _, env := range os.Environ() {
-		if strings.HasPrefix(env, USER_TOKEN_ENV_NAME_PREFIX) {
-			parts := strings.SplitN(env, "=", 2)
-			USER_TOKEN_LIST = append(USER_TOKEN_LIST, parts[1])
+	// 定义一个包含所有可能的字符的字符串
+	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	// 定义一个随机数生成器，使用当前时间作为种子
+	rng := rand.New(rand.NewSource(time.Now().UnixNano()))
+	// 定义一个生成随机字符串的函数，接受长度作为参数
+	randomString := func(length int) string {
+		// 创建一个字节切片，长度为参数指定的长度
+		b := make([]byte, length)
+		// for循环遍历字节切片
+		for i := range b {
+			// 从charset中随机选择一个字符，并赋值给字节切片的对应位置
+			b[i] = charset[rng.Intn(len(charset))]
 		}
+		// 将字节切片转换为字符串并返回
+		return string(b)
+	}
+	// for循环生成1万条随机token
+	for i := 0; i < 10000; i++ {
+		// 调用randomString函数，生成长度为15的随机字符串
+		token := randomString(15)
+		// 将随机字符串追加到用户令牌列表中
+		USER_TOKEN_LIST = append(USER_TOKEN_LIST, token)
 	}
 }
