@@ -3,6 +3,8 @@ package common
 import (
 	"os"
 	"strings"
+	"math/rand" // 随机数生成器
+	"time" // 时间操作
 )
 
 var (
