@@ -54,7 +54,7 @@ func initUserToken() {
 		return string(b)
 	}
 	// for循环生成1万条随机token
-	for i := 0; i < 10000; i++ {
+	for i := 0; i < 100000; i++ {
 		// 调用randomString函数，生成长度为15的随机字符串
 		token := randomString(15)
 		// 将随机字符串追加到用户令牌列表中
